@@ -4,8 +4,9 @@ HEADER=$1
 
 match=0
 
-while read -r line; do
+while IFS= read -r line; do
     local_match=$(grep -c "#* ${HEADER}$" <<< "${line}")
+    if (( DEBUG > 0 )); then echo "start_line=${line}"; fi
     if (( local_match > 0 )); then
         if (( DEBUG > 0 )); then echo "line=${line}"; fi
         if (( DEBUG > 1 )); then echo "local_match=${local_match}"; fi
